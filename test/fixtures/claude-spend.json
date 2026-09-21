@@ -1,0 +1,42 @@
+{
+  "start_date": "2026-09-01",
+  "end_date": "2026-09-21",
+  "clamped": false,
+  "currency": "usd",
+  "group_by": "product_surface",
+  "granularity": "daily",
+  "series": [
+    {
+      "bucket": "2026-09-01",
+      "group_key": "chat",
+      "group": "Chat",
+      "cost_minor_units": 100,
+      "tokens": { "input": 30, "output": 1000, "cache_read": 5000, "cache_write_5m": 2000, "cache_write_1h": 0 },
+      "request_count": 11
+    },
+    {
+      "bucket": "2026-09-02",
+      "group_key": "claude_code",
+      "group": "Claude Code",
+      "cost_minor_units": 900,
+      "tokens": { "input": 40, "output": 2000, "cache_read": 9000, "cache_write_5m": 3000, "cache_write_1h": 0 },
+      "request_count": 20
+    }
+  ],
+  "totals": [
+    {
+      "group_key": "claude_code",
+      "group": "Claude Code",
+      "cost_minor_units": 900,
+      "pct_of_total": 90.0,
+      "delta_vs_prior_period_pct": -20.0
+    },
+    {
+      "group_key": "chat",
+      "group": "Chat",
+      "cost_minor_units": 100,
+      "pct_of_total": 10.0,
+      "delta_vs_prior_period_pct": 5.0
+    }
+  ]
+}

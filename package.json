@@ -2,7 +2,7 @@
   "name": "month-ai-usage",
   "displayName": "Month AI Usage",
   "description": "Shows in the status bar how much of your monthly AI credits (GitHub Copilot + Claude) you have used compared with the share of the working month already elapsed.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "lunadevel",
   "author": {
     "name": "Jago MF",
@@ -20,6 +20,7 @@
   "engines": {
     "vscode": "^1.100.0"
   },
+  "icon": "resources/icon.png",
   "categories": [
     "Other"
   ],
@@ -51,6 +52,10 @@
       {
         "command": "monthAiUsage.clearClaudeSessionKey",
         "title": "Month AI Usage: Clear Claude Session Key"
+      },
+      {
+        "command": "monthAiUsage.selectGitHubAccount",
+        "title": "Month AI Usage: Select GitHub Account"
       }
     ],
     "configuration": {
@@ -82,10 +87,30 @@
           "default": 0,
           "description": "Monthly spend limit in USD. 0 means read it from claude.ai."
         },
-        "monthAiUsage.warningThresholdPoints": {
+        "monthAiUsage.warningThresholdPercent": {
           "type": "number",
-          "default": 10,
-          "description": "Percentage points above the elapsed working-month share before the status bar turns to the error colour."
+          "default": 80,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Usage percentage at which the status bar item turns to the warning colour."
+        },
+        "monthAiUsage.errorThresholdPercent": {
+          "type": "number",
+          "default": 95,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Usage percentage at which the status bar item turns to the error colour."
+        },
+        "monthAiUsage.workingDays": {
+          "type": "array",
+          "default": [1, 2, 3, 4, 5],
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "uniqueItems": true,
+          "markdownDescription": "Days of the week counted as working days, where `0` is Sunday and `6` is Saturday. Defaults to Monday-Friday. An empty list falls back to the default."
         }
       }
     }

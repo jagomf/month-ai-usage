@@ -5,5 +5,5 @@ out/
 .vscode-test/
 .DS_Store
 
-# Documento de trabajo local: nunca se versiona (puede contener detalles de cuentas y consumo).
+# Local working document: never versioned (may contain account and usage details).
 PLAN.md

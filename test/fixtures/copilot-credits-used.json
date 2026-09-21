@@ -1,0 +1,19 @@
+{
+  "login": "octocat",
+  "copilot_plan": "business",
+  "token_based_billing": true,
+  "quota_reset_date_utc": "2026-10-01T00:00:00.000Z",
+  "quota_snapshots": {
+    "premium_interactions": {
+      "quota_id": "premium_interactions",
+      "entitlement": 1000,
+      "remaining": 250,
+      "quota_remaining": 250.0,
+      "percent_remaining": 25.0,
+      "credits_used": 770,
+      "unlimited": false,
+      "has_quota": true,
+      "token_based_billing": true
+    }
+  }
+}

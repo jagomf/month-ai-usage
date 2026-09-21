@@ -1,0 +1,13 @@
+{
+  "start_date": "2026-09-01",
+  "end_date": "2026-09-03",
+  "clamped": false,
+  "currency": "usd",
+  "group_by": "product_surface",
+  "granularity": "daily",
+  "series": [
+    { "bucket": "2026-09-01", "group_key": "chat", "group": "Chat", "cost_minor_units": 100 },
+    { "bucket": "2026-09-02", "group_key": "claude_code", "group": "Claude Code", "cost_minor_units": 300 },
+    { "bucket": "2026-09-03", "group_key": "chat", "group": "Chat", "cost_minor_units": 200 }
+  ]
+}

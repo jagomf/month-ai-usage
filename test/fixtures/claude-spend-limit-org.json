@@ -1,0 +1,16 @@
+{
+  "organization_uuid": "22222222-2222-4222-8222-222222222222",
+  "limit_type": "organization",
+  "seat_tier": null,
+  "account_uuid": null,
+  "account_email": null,
+  "account_name": null,
+  "group_uuid": null,
+  "group_name": null,
+  "is_enabled": true,
+  "monthly_credit_limit": 2000000,
+  "used_credits": 750000,
+  "period": "monthly",
+  "currency": "USD",
+  "pooled_limit_enabled": false
+}

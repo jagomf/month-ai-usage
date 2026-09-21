@@ -1,0 +1,7 @@
+{
+  "organization_uuid": "22222222-2222-4222-8222-222222222222",
+  "limit_type": "group",
+  "is_enabled": false,
+  "monthly_credit_limit": 50000,
+  "pooled_limit_enabled": false
+}

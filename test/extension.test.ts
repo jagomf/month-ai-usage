@@ -13,6 +13,7 @@ suite('Extension', () => {
       'monthAiUsage.showDetails',
       'monthAiUsage.setClaudeSessionKey',
       'monthAiUsage.clearClaudeSessionKey',
+      'monthAiUsage.selectGitHubAccount',
     ]) {
       assert.ok(commands.includes(id), `missing command ${id}`);
     }

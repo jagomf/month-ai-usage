@@ -1,0 +1,30 @@
+{
+  "login": "octocat",
+  "copilot_plan": "business",
+  "quota_reset_date_utc": "2026-10-01T00:00:00Z",
+  "quota_snapshots": {
+    "ai_credits": {
+      "quota_id": "ai_credits",
+      "entitlement": 500,
+      "remaining": 100,
+      "percent_remaining": 20.0,
+      "unlimited": false,
+      "has_quota": true
+    },
+    "completions": {
+      "quota_id": "completions",
+      "entitlement": 100,
+      "remaining": 50,
+      "percent_remaining": 50.0,
+      "unlimited": false,
+      "has_quota": true
+    },
+    "chat": {
+      "quota_id": "chat",
+      "entitlement": 0,
+      "remaining": 0,
+      "unlimited": true,
+      "has_quota": true
+    }
+  }
+}
