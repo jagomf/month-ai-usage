@@ -1,0 +1,118 @@
+{
+  "name": "month-ai-usage",
+  "displayName": "Month AI Usage",
+  "description": "Shows in the status bar how much of your monthly AI credits (GitHub Copilot + Claude) you have used compared with the share of the working month already elapsed.",
+  "version": "0.0.1",
+  "publisher": "lunadevel",
+  "author": {
+    "name": "Jago MF",
+    "email": "jago84@gmail.com",
+    "url": "https://github.com/jagomf"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jagomf/month-ai-usage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jagomf/month-ai-usage/issues"
+  },
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "copilot",
+    "claude",
+    "usage",
+    "credits",
+    "status bar"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "monthAiUsage.refresh",
+        "title": "Month AI Usage: Refresh"
+      },
+      {
+        "command": "monthAiUsage.showDetails",
+        "title": "Month AI Usage: Show Details"
+      },
+      {
+        "command": "monthAiUsage.setClaudeSessionKey",
+        "title": "Month AI Usage: Set Claude Session Key"
+      },
+      {
+        "command": "monthAiUsage.clearClaudeSessionKey",
+        "title": "Month AI Usage: Clear Claude Session Key"
+      }
+    ],
+    "configuration": {
+      "title": "Month AI Usage",
+      "properties": {
+        "monthAiUsage.refreshIntervalMinutes": {
+          "type": "number",
+          "default": 15,
+          "minimum": 1,
+          "description": "How often usage data is refreshed, in minutes."
+        },
+        "monthAiUsage.copilot.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track GitHub Copilot AI credits."
+        },
+        "monthAiUsage.claude.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track Claude (claude.ai) monthly spend."
+        },
+        "monthAiUsage.claude.organizationId": {
+          "type": "string",
+          "default": "",
+          "description": "claude.ai organization UUID. Leave empty to auto-detect from your session."
+        },
+        "monthAiUsage.claude.monthlyLimitUsd": {
+          "type": "number",
+          "default": 0,
+          "description": "Monthly spend limit in USD. 0 means read it from claude.ai."
+        },
+        "monthAiUsage.warningThresholdPoints": {
+          "type": "number",
+          "default": 10,
+          "description": "Percentage points above the elapsed working-month share before the status bar turns to the error colour."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "package": "npm run check-types && npm run lint && node esbuild.mjs --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src test",
+    "test": "vscode-test",
+    "pretest": "npm run compile && tsc -p tsconfig.test.json",
+    "vsix": "vsce package"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.100.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.0.0",
+    "mocha": "^11.0.0",
+    "typescript": "^5.6.0"
+  }
+}
