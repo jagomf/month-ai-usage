@@ -22,16 +22,34 @@ const REASONS: Record<string, string> = {
   disabled: 'disabled',
 };
 
+/**
+ * Rounds a percentage for display without ever crossing the 0 % or 100 % boundaries:
+ * 99.6 % stays at 99 % because the quota is not exhausted yet, and 0.2 % stays at 1 %
+ * because something has already been consumed.
+ */
+export function roundPercent(value: number, decimals = 0): number {
+  const factor = 10 ** decimals;
+  const step = 1 / factor;
+  const rounded = Math.round(value * factor) / factor;
+  if (rounded >= 100 && value < 100) {
+    return 100 - step;
+  }
+  if (rounded <= 0 && value > 0) {
+    return step;
+  }
+  return rounded;
+}
+
 export function formatPercent(value: number | null, decimals = 0): string {
   if (value === null) {
     return '--%';
   }
-  return `${value.toFixed(decimals)}%`;
+  return `${roundPercent(value, decimals).toFixed(decimals)}%`;
 }
 
 function snapshotSummary(snapshot: UsageSnapshot): string {
   if (snapshot.usedPct !== null) {
-    return `${snapshot.label}: ${Math.round(snapshot.usedPct)}%`;
+    return `${snapshot.label}: ${formatPercent(snapshot.usedPct)}`;
   }
   if (snapshot.unlimited) {
     return `${snapshot.label}: unlimited`;

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- Percentages are no longer rounded past their boundaries: a provider short of its limit never reads
+  as 100 % (59,730 of 60,000 credits now shows 99 %, not 100 %), and a barely used one never reads as
+  0 %. The colour thresholds keep using the exact figure.
+
 ## 0.2.0
 
 - The status bar item now also reacts to a single provider: it turns amber when either the average

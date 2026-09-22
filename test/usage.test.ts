@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 
 import { UsageSnapshot } from '../src/providers/types';
-import { buildModel } from '../src/usage';
+import { buildModel, formatPercent } from '../src/usage';
 
 const WORKDAYS = { total: 20, elapsed: 10 }; // 50 % of the working month
 const THRESHOLDS = { warning: 80, error: 95, providerWarning: 90, providerError: 95 };
@@ -92,6 +92,27 @@ suite('buildModel', () => {
     assert.strictEqual(model.text, 'Usage: 66% / Month: 33%');
   });
 
+  test('a provider short of its limit never shows as 100 %', () => {
+    // 59,730 of 60,000 credits: 99.55 %, but the quota is not exhausted yet.
+    const model = buildModel(
+      [snapshot('copilot', (59730 / 60000) * 100), snapshot('claude', 62.3)],
+      WORKDAYS,
+      THRESHOLDS,
+    );
+    assert.strictEqual(model.summary, 'Copilot: 99% - Claude: 62%');
+    assert.strictEqual(model.text, 'Usage: 81% / Month: 50%');
+  });
+
+  test('an exhausted provider does show as 100 %', () => {
+    const model = buildModel([snapshot('copilot', 100), snapshot('claude', 120)], WORKDAYS, THRESHOLDS);
+    assert.strictEqual(model.summary, 'Copilot: 100% - Claude: 120%');
+  });
+
+  test('a barely used provider never shows as 0 %', () => {
+    const model = buildModel([snapshot('copilot', 0.2), snapshot('claude', 0)], WORKDAYS, THRESHOLDS);
+    assert.strictEqual(model.summary, 'Copilot: 1% - Claude: 0%');
+  });
+
   test('details include the working days and the spend', () => {
     const model = buildModel(
       [snapshot('claude', 20, { used: 10000, limit: 50000, unit: 'usd' })],
@@ -102,5 +123,16 @@ suite('buildModel', () => {
       'Working month: 10 of 20 days',
       'Claude: $100.00 of $500.00',
     ]);
+  });
+});
+
+suite('formatPercent', () => {
+  test('keeps the boundaries honest at any precision', () => {
+    assert.strictEqual(formatPercent(null), '--%');
+    assert.strictEqual(formatPercent(99.55), '99%');
+    assert.strictEqual(formatPercent(99.996, 2), '99.99%');
+    assert.strictEqual(formatPercent(100), '100%');
+    assert.strictEqual(formatPercent(0), '0%');
+    assert.strictEqual(formatPercent(0.004, 2), '0.01%');
   });
 });

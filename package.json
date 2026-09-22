@@ -2,7 +2,7 @@
   "name": "month-ai-usage",
   "displayName": "Month AI Usage",
   "description": "Shows in the status bar how much of your monthly AI credits (GitHub Copilot + Claude) you have used compared with the share of the working month already elapsed.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "lunadevel",
   "author": {
     "name": "Jago MF",
