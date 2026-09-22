@@ -31,6 +31,7 @@ jobs:
         with:
           files: month-ai-usage-${{ github.ref_name }}.vsix
           generate_release_notes: true
+      # Switch to OIDC trusted publishing once it is available: see NEXT_STEPS.md.
       - name: Publish to the VS Code Marketplace
         run: npx vsce publish --packagePath month-ai-usage-${{ github.ref_name }}.vsix
         env:

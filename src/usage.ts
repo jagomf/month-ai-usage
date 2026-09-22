@@ -56,10 +56,14 @@ function snapshotDetails(snapshot: UsageSnapshot): string[] {
 }
 
 export interface UsageThresholds {
-  /** Usage percentage at which the item turns to the warning colour. */
+  /** Average usage at which the item turns to the warning colour. */
   warning: number;
-  /** Usage percentage at which the item turns to the error colour. */
+  /** Average usage at which the item turns to the error colour. */
   error: number;
+  /** Usage of a single provider that turns the item to the warning colour on its own. */
+  providerWarning: number;
+  /** Usage of a single provider that turns the item to the error colour on its own. */
+  providerError: number;
 }
 
 export function buildModel(
@@ -77,9 +81,9 @@ export function buildModel(
 
   let level: UsageLevel = 'ok';
   if (usagePct !== null) {
-    if (usagePct >= thresholds.error) {
+    if (usagePct >= thresholds.error || measured.some((pct) => pct >= thresholds.providerError)) {
       level = 'error';
-    } else if (usagePct >= thresholds.warning) {
+    } else if (usagePct >= thresholds.warning || measured.some((pct) => pct >= thresholds.providerWarning)) {
       level = 'warning';
     }
   }

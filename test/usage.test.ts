@@ -4,7 +4,7 @@ import { UsageSnapshot } from '../src/providers/types';
 import { buildModel } from '../src/usage';
 
 const WORKDAYS = { total: 20, elapsed: 10 }; // 50 % of the working month
-const THRESHOLDS = { warning: 80, error: 95 };
+const THRESHOLDS = { warning: 80, error: 95, providerWarning: 90, providerError: 95 };
 
 function snapshot(provider: 'copilot' | 'claude', usedPct: number | null, extra: Partial<UsageSnapshot> = {}): UsageSnapshot {
   return {
@@ -58,6 +58,29 @@ suite('buildModel', () => {
     assert.strictEqual(buildModel([snapshot('copilot', 80)], WORKDAYS, THRESHOLDS).level, 'warning');
     assert.strictEqual(buildModel([snapshot('copilot', 94.9)], WORKDAYS, THRESHOLDS).level, 'warning');
     assert.strictEqual(buildModel([snapshot('copilot', 95)], WORKDAYS, THRESHOLDS).level, 'error');
+  });
+
+  test('a single provider at 90 % warns even when the average is low', () => {
+    const model = buildModel([snapshot('copilot', 90), snapshot('claude', 10)], WORKDAYS, THRESHOLDS);
+    assert.strictEqual(model.usagePct, 50);
+    assert.strictEqual(model.level, 'warning');
+  });
+
+  test('a single provider at 95 % is an error even when the average is low', () => {
+    const model = buildModel([snapshot('copilot', 95), snapshot('claude', 5)], WORKDAYS, THRESHOLDS);
+    assert.strictEqual(model.usagePct, 50);
+    assert.strictEqual(model.level, 'error');
+  });
+
+  test('below both provider thresholds the average still decides', () => {
+    assert.strictEqual(
+      buildModel([snapshot('copilot', 89.9), snapshot('claude', 10)], WORKDAYS, THRESHOLDS).level,
+      'ok',
+    );
+    assert.strictEqual(
+      buildModel([snapshot('copilot', 85), snapshot('claude', 85)], WORKDAYS, THRESHOLDS).level,
+      'warning',
+    );
   });
 
   test('rounds the status bar text to the nearest integer', () => {

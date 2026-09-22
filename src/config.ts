@@ -10,6 +10,8 @@ export interface ExtensionConfig {
   claudeMonthlyLimitUsd: number;
   warningThresholdPercent: number;
   errorThresholdPercent: number;
+  providerWarningThresholdPercent: number;
+  providerErrorThresholdPercent: number;
   workingDays: number[];
 }
 
@@ -23,6 +25,8 @@ export function getConfig(): ExtensionConfig {
     claudeMonthlyLimitUsd: Math.max(0, config.get<number>('claude.monthlyLimitUsd', 0)),
     warningThresholdPercent: config.get<number>('warningThresholdPercent', 80),
     errorThresholdPercent: config.get<number>('errorThresholdPercent', 95),
+    providerWarningThresholdPercent: config.get<number>('providerWarningThresholdPercent', 90),
+    providerErrorThresholdPercent: config.get<number>('providerErrorThresholdPercent', 95),
     workingDays: config.get<number[]>('workingDays', [...DEFAULT_WORKING_DAYS]),
   };
 }

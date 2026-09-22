@@ -2,7 +2,8 @@
 
 A VS Code extension that shows, permanently in the status bar, how much of your monthly AI
 credits you have used (GitHub Copilot and Claude) next to how much of the **working month**
-has already gone by. The item turns amber at 80 % usage and red at 95 %.
+has already gone by. The item turns amber when the average reaches 80 % or any single provider
+reaches 90 %, and red when either the average or a single provider reaches 95 %.
 
 > Status: early development.
 
@@ -24,8 +25,10 @@ the extension shows the other and reports the problem in the tooltip.
 | --- | --- | --- |
 | `monthAiUsage.refreshIntervalMinutes` | `15` | How often the data is refreshed. |
 | `monthAiUsage.workingDays` | `[1,2,3,4,5]` | Days counted as working days, `0` = Sunday. |
-| `monthAiUsage.warningThresholdPercent` | `80` | Usage at which the item turns amber. |
-| `monthAiUsage.errorThresholdPercent` | `95` | Usage at which the item turns red. |
+| `monthAiUsage.warningThresholdPercent` | `80` | Average usage at which the item turns amber. |
+| `monthAiUsage.errorThresholdPercent` | `95` | Average usage at which the item turns red. |
+| `monthAiUsage.providerWarningThresholdPercent` | `90` | Usage of a single provider that turns the item amber on its own. |
+| `monthAiUsage.providerErrorThresholdPercent` | `95` | Usage of a single provider that turns the item red on its own. |
 | `monthAiUsage.copilot.enabled` | `true` | Track GitHub Copilot. |
 | `monthAiUsage.claude.enabled` | `true` | Track Claude. |
 | `monthAiUsage.claude.organizationId` | `""` | claude.ai organization uuid; empty auto-detects. |

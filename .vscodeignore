@@ -10,5 +10,5 @@ node_modules/**
 esbuild.mjs
 eslint.config.mjs
 tsconfig*.json
-PLAN.md
+NEXT_STEPS.md
 **/*.map

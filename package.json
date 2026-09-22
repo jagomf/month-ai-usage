@@ -2,7 +2,7 @@
   "name": "month-ai-usage",
   "displayName": "Month AI Usage",
   "description": "Shows in the status bar how much of your monthly AI credits (GitHub Copilot + Claude) you have used compared with the share of the working month already elapsed.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "lunadevel",
   "author": {
     "name": "Jago MF",
@@ -92,18 +92,38 @@
           "default": 80,
           "minimum": 0,
           "maximum": 100,
-          "description": "Usage percentage at which the status bar item turns to the warning colour."
+          "description": "Average usage percentage at which the status bar item turns to the warning colour."
         },
         "monthAiUsage.errorThresholdPercent": {
           "type": "number",
           "default": 95,
           "minimum": 0,
           "maximum": 100,
-          "description": "Usage percentage at which the status bar item turns to the error colour."
+          "description": "Average usage percentage at which the status bar item turns to the error colour."
+        },
+        "monthAiUsage.providerWarningThresholdPercent": {
+          "type": "number",
+          "default": 90,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Usage percentage of a single provider that turns the status bar item to the warning colour on its own, even when the average is lower."
+        },
+        "monthAiUsage.providerErrorThresholdPercent": {
+          "type": "number",
+          "default": 95,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Usage percentage of a single provider that turns the status bar item to the error colour on its own, even when the average is lower."
         },
         "monthAiUsage.workingDays": {
           "type": "array",
-          "default": [1, 2, 3, 4, 5],
+          "default": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
           "items": {
             "type": "integer",
             "minimum": 0,
@@ -134,7 +154,7 @@
     "@typescript-eslint/parser": "^8.0.0",
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^3.1.0",
-    "@vscode/vsce": "^3.0.0",
+    "@vscode/vsce": "^4.0.0",
     "esbuild": "^0.25.0",
     "eslint": "^9.0.0",
     "mocha": "^11.0.0",

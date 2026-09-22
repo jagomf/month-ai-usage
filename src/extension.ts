@@ -30,6 +30,8 @@ function paint(snapshots: UsageSnapshot[], cachedAt?: number): void {
   const model = buildModel(snapshots, workdayStats(new Date(), config.workingDays), {
     warning: config.warningThresholdPercent,
     error: config.errorThresholdPercent,
+    providerWarning: config.providerWarningThresholdPercent,
+    providerError: config.providerErrorThresholdPercent,
   });
   const staleMinutes = cachedAt === undefined ? undefined : Math.floor((Date.now() - cachedAt) / 60_000);
   render(item, { model, staleMinutes, offline: cachedAt !== undefined });
@@ -127,6 +129,8 @@ async function showDetails(context: vscode.ExtensionContext): Promise<void> {
   const model = buildModel(lastSnapshots, workdayStats(new Date(), config.workingDays), {
     warning: config.warningThresholdPercent,
     error: config.errorThresholdPercent,
+    providerWarning: config.providerWarningThresholdPercent,
+    providerError: config.providerErrorThresholdPercent,
   });
 
   const picked = await vscode.window.showQuickPick(
