@@ -5,8 +5,6 @@ credits you have used (GitHub Copilot and Claude) next to how much of the **work
 has already gone by. The item turns amber when the average reaches 80 % or any single provider
 reaches 90 %, and red when either the average or a single provider reaches 95 %.
 
-> Status: early development.
-
 ![Status bar item showing the usage percentage and its tooltip](resources/screenshot.png)
 
 ## How it works
